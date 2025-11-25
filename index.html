@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aplicación asistente móvil para personas con discapacidad visual">
+    <title>Asistente por voz - App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1 class="title">Asistente Visual</h1>
+        <p class="subtitle">Tu compañero auditivo personal</p>
+    </header>
+
+    <!-- Contenedor principal -->
+    <main class="container">
+        
+        <!-- Información en tiempo real -->
+        <section class="info-cards">
+            <div class="card glass">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span class="card-label">Hora actual</span>
+                </div>
+                <p class="card-value" id="current-time">--:--</p>
+            </div>
+
+            <div class="card glass">
+                <div class="card-header">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                    <span class="card-label">Fecha</span>
+                </div>
+                <p class="card-date" id="current-date">--</p>
+            </div>
+        </section>
+
+        <!-- Botón principal de voz -->
+        <section class="voice-section">
+            <button id="voice-btn" class="voice-btn" aria-label="Activar comando de voz">
+                <div class="voice-btn-glow"></div>
+                <div class="voice-btn-content">
+                    <svg class="mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                        <line x1="12" y1="19" x2="12" y2="23"></line>
+                        <line x1="8" y1="23" x2="16" y2="23"></line>
+                    </svg>
+                </div>
+            </button>
+            <p class="voice-status" id="voice-status">Presiona para hablar</p>
+        </section>
+
+        <!-- Botones de acceso rápido -->
+        <section class="quick-actions">
+            <button class="action-btn glass" data-command="hora" aria-label="Consultar hora">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Hora</span>
+            </button>
+
+            <button class="action-btn glass" data-command="fecha" aria-label="Consultar fecha">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <span>Fecha</span>
+            </button>
+
+            <button class="action-btn glass" data-command="recordatorios" aria-label="Ver recordatorios">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span>Recordatorios</span>
+            </button>
+
+            <button class="action-btn glass" data-command="ayuda" aria-label="Ayuda">
+                <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span>Ayuda</span>
+            </button>
+        </section>
+
+        <!-- Funciones especiales -->
+        <section class="special-features glass">
+            <h2 class="section-title">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+                Funciones Especiales
+            </h2>
+            <div class="features-grid">
+                <button class="feature-card" id="compass-btn">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                    </svg>
+                    <div class="feature-info">
+                        <p class="feature-title">Brújula</p>
+                        <p class="feature-value" id="direction-value">--</p>
+                    </div>
+                </button>
+
+                <button class="feature-card" id="light-btn">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <div class="feature-info">
+                        <p class="feature-title">Nivel de Luz</p>
+                        <p class="feature-value" id="light-value">--</p>
+                    </div>
+                </button>
+
+                <button class="feature-card" id="currency-btn">
+                    <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <div class="feature-info">
+                        <p class="feature-title">Detectar Billete</p>
+                        <p class="feature-value">Tap para usar</p>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Estado de respuestas -->
+        <section class="response-card glass">
+            <div class="response-header">
+                <h3 class="response-title">
+                    <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    Última Interacción
+                </h3>
+                <button class="repeat-btn" id="repeat-btn">Repetir</button>
+            </div>
+            <div class="response-content">
+                <div class="command-display" id="command-display">
+                    <p class="label">Tu comando:</p>
+                    <p class="command-text" id="last-command">Esperando comando...</p>
+                </div>
+                <div class="response-display">
+                    <p class="label">Respuesta:</p>
+                    <p class="response-text" id="last-response">Bienvenido. Di "Ayuda" para conocer los comandos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lista de recordatorios -->
+        <section class="reminders-section glass" id="reminders-section" style="display: none;">
+            <h3 class="section-title">
+                <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                Recordatorios (<span id="reminders-count">0</span>)
+            </h3>
+            <div class="reminders-list" id="reminders-list"></div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Desarrollado por VALA  para personas con discapacidad visual</p>
+        <p>Satélite Norte, Warnes - Santa Cruz, Bolivia</p>
+    </footer>
+
+    <!-- Scripts modulares -->
+    <script src="js/datetime.js"></script>
+    <script src="js/voice.js"></script>
+    <script src="js/reminders.js"></script>
+    <script src="js/orientation.js"></script>
+    <script src="js/currency.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
