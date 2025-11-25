@@ -15,7 +15,7 @@ const currency = {
         this.isDetecting = true;
 
         if (window.voice) {
-            window.voice.speak('Por favor coloca el billete frente a la cámara. Procesando...');
+            window.voice.speak('Esta función está en desarrollo. Por ahora simula la detección. En el futuro podrá reconocer billetes reales usando la cámara.');
         }
 
         // Simular detección (en producción aquí iría la lógica de ML/visión computacional)

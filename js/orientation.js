@@ -40,13 +40,20 @@ const orientation = {
 
     // Iniciar lectura de brújula
     startCompass: function() {
+        let readings = 0;
+        const maxReadings = 3;
+        
         const handleOrientation = (event) => {
             const alpha = event.alpha; // Rotación alrededor del eje Z
             
-            if (alpha === null) {
-                this.updateDirection('No disponible');
-                if (window.voice) {
-                    window.voice.speak('No se puede leer la brújula en este momento');
+            if (alpha === null || alpha === undefined) {
+                readings++;
+                if (readings >= maxReadings) {
+                    this.updateDirection('No disponible');
+                    if (window.voice) {
+                        window.voice.speak('Tu dispositivo no tiene brújula disponible o los permisos están bloqueados');
+                    }
+                    window.removeEventListener('deviceorientation', handleOrientation);
                 }
                 return;
             }
@@ -84,17 +91,23 @@ const orientation = {
             this.updateDirection(direction);
             
             if (window.voice) {
-                window.voice.speak(`Estás mirando hacia el ${cardinalDirection}`);
+                window.voice.speak(`Estás mirando hacia el ${cardinalDirection}. Valor de brújula: ${Math.round(alpha)} grados`);
             }
 
-            // Remover listener después de una lectura
+            // Remover listener después de una lectura exitosa
             window.removeEventListener('deviceorientation', handleOrientation);
         };
 
-        window.addEventListener('deviceorientation', handleOrientation, { once: true });
+        window.addEventListener('deviceorientation', handleOrientation);
 
-        // Timeout de 5 segundos
+        // Timeout de 5 segundos para casos donde no hay respuesta
         setTimeout(() => {
+            if (readings === 0) {
+                this.updateDirection('Sin respuesta');
+                if (window.voice) {
+                    window.voice.speak('No se pudo obtener información de la brújula. Intenta mover el dispositivo o verifica que esté calibrado');
+                }
+            }
             window.removeEventListener('deviceorientation', handleOrientation);
         }, 5000);
     },
