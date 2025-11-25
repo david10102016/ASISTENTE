@@ -10,9 +10,13 @@ const orientation = {
         if (!('DeviceOrientationEvent' in window)) {
             this.updateDirection('No disponible');
             if (window.voice) {
-                window.voice.speak('Tu dispositivo no tiene brújula o no está disponible en este navegador');
+                window.voice.speak('La brújula no está disponible en este dispositivo o navegador. Esta función requiere un dispositivo móvil con sensor de orientación.');
             }
             return;
+        }
+
+        if (window.voice) {
+            window.voice.speak('Intentando acceder a la brújula. Mantén el dispositivo nivelado.');
         }
 
         // Solicitar permisos en iOS 13+
@@ -22,15 +26,17 @@ const orientation = {
                     if (permissionState === 'granted') {
                         this.startCompass();
                     } else {
+                        this.updateDirection('Sin permisos');
                         if (window.voice) {
-                            window.voice.speak('Necesito permiso para usar la brújula');
+                            window.voice.speak('Necesito permisos para acceder a la brújula. Por favor otorga los permisos cuando se soliciten.');
                         }
                     }
                 })
                 .catch(error => {
                     console.error('Error al solicitar permisos:', error);
+                    this.updateDirection('Error de permisos');
                     if (window.voice) {
-                        window.voice.speak('No se pudo acceder a la brújula');
+                        window.voice.speak('No se pudieron obtener los permisos para la brújula.');
                     }
                 });
         } else {
@@ -100,16 +106,16 @@ const orientation = {
 
         window.addEventListener('deviceorientation', handleOrientation);
 
-        // Timeout de 5 segundos para casos donde no hay respuesta
+        // Timeout de 3 segundos para casos donde no hay respuesta
         setTimeout(() => {
             if (readings === 0) {
                 this.updateDirection('Sin respuesta');
                 if (window.voice) {
-                    window.voice.speak('No se pudo obtener información de la brújula. Intenta mover el dispositivo o verifica que esté calibrado');
+                    window.voice.speak('La brújula no respondió. Esta función funciona mejor en dispositivos móviles al aire libre, lejos de objetos metálicos.');
                 }
             }
             window.removeEventListener('deviceorientation', handleOrientation);
-        }, 5000);
+        }, 3000);
     },
 
     // Obtener nivel de luz

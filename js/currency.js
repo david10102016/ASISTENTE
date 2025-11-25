@@ -15,14 +15,10 @@ const currency = {
         this.isDetecting = true;
 
         if (window.voice) {
-            window.voice.speak('Esta función está en desarrollo. Por ahora simula la detección. En el futuro podrá reconocer billetes reales usando la cámara.');
+            window.voice.speak('Esta función está en desarrollo y no está disponible aún. Para identificar un billete, describe su color: café para 10, rojo para 20, naranja para 50, verde para 100, o azul para 200 bolivianos.');
         }
 
-        // Simular detección (en producción aquí iría la lógica de ML/visión computacional)
-        setTimeout(() => {
-            this.simulateDetection();
-            this.isDetecting = false;
-        }, 2500);
+        this.isDetecting = false;
     },
 
     // Simular detección (para demostración)
@@ -40,7 +36,7 @@ const currency = {
         const detected = bolivianBills[Math.floor(Math.random() * bolivianBills.length)];
 
         if (window.voice) {
-            window.voice.speak(`Billete detectado: ${detected.description}`);
+            window.voice.speak(`Simulación completada. Ejemplo de billete: ${detected.description}`);
         }
     },
 
